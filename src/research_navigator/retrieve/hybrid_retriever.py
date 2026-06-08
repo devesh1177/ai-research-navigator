@@ -1,3 +1,5 @@
+from typing import Any
+
 from research_navigator.retrieve.retriever import (
     retrieve,
 )
@@ -7,64 +9,11 @@ from research_navigator.retrieve.bm25_retriever import (
 )
 
 
-RESEARCH_TERMS = [
-    "transformer",
-    "transformers",
-    "attention",
-    "bert",
-    "gpt",
-    "llm",
-    "rag",
-    "graphrag",
-    "agentic rag",
-    "retrieval",
-    "lora",
-    "rlhf",
-    "constitutional ai",
-    "react",
-    "agent",
-    "agents",
-    "swe-agent",
-    "reasoning",
-    "chain of thought",
-    "deepseek",
-    "gemini",
-    "qwen",
-    "mixtral",
-    "llama",
-    "alignment",
-    "fine tuning",
-    "fine-tuning",
-    "prompting",
-    "multimodal",
-    "hallucination",
-    "hallucinations",
-    "benchmark",
-    "evaluation",
-]
-
-
-def is_corpus_query(
-    query: str,
-) -> bool:
-
-    query = query.lower()
-
-    return any(term in query for term in RESEARCH_TERMS)
-
-
 def hybrid_retrieve(
     query: str,
     k: int = 5,
-    confidence_threshold: float = 0.65,
-):
-
-    # ---------------------------------
-    # Reject unrelated questions
-    # ---------------------------------
-
-    if not is_corpus_query(query):
-        return []
+    confidence_threshold: float = 0.55,
+) -> list[Any]:
 
     # ---------------------------------
     # Dense Retrieval
@@ -103,8 +52,6 @@ def hybrid_retrieve(
 
     fused_scores = {}
 
-    # Dense scores
-
     for rank, point in enumerate(
         dense_results,
         start=1,
@@ -116,9 +63,10 @@ def hybrid_retrieve(
             "score": 1.0 / rank,
         }
 
-    # BM25 scores
-
-    for rank, (point, _) in enumerate(
+    for rank, (
+        point,
+        _,
+    ) in enumerate(
         bm25_results,
         start=1,
     ):
@@ -133,7 +81,7 @@ def hybrid_retrieve(
         fused_scores[doc_id]["score"] += 1.0 / rank
 
     # ---------------------------------
-    # Sort by fused score
+    # Sort by Fusion Score
     # ---------------------------------
 
     ranked = sorted(
@@ -143,7 +91,7 @@ def hybrid_retrieve(
     )
 
     # ---------------------------------
-    # Remove duplicate documents
+    # Remove Duplicate Documents
     # ---------------------------------
 
     final_results = []
