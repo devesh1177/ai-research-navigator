@@ -11,6 +11,7 @@ Run from the corpus root (where this script and manifest.json live):
 Dependencies: requests, trafilatura, html2text
     pip install requests trafilatura html2text
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -66,7 +67,9 @@ def fetch_arxiv_pdf(arxiv_id: str, dest: Path) -> tuple[bool, str]:
     return True, f"{len(r.content)} bytes"
 
 
-def fetch_blog_post(url: str, dest: Path, doc_id: str, title: str, source_label: str) -> tuple[bool, str]:
+def fetch_blog_post(
+    url: str, dest: Path, doc_id: str, title: str, source_label: str
+) -> tuple[bool, str]:
     """Fetch a blog post and convert to markdown."""
     if dest.exists() and dest.stat().st_size > 1_000:
         return True, "already present"
@@ -92,12 +95,7 @@ def fetch_blog_post(url: str, dest: Path, doc_id: str, title: str, source_label:
     if not md_body:
         return False, "no extractor available (install trafilatura or html2text)"
 
-    header = (
-        f"# {title}\n\n"
-        f"Source: {url}\n"
-        f"Publisher: {source_label}\n\n"
-        f"---\n\n"
-    )
+    header = f"# {title}\n\nSource: {url}\nPublisher: {source_label}\n\n---\n\n"
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(header + md_body, encoding="utf-8")
     return True, f"{dest.stat().st_size} bytes"

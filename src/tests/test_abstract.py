@@ -1,9 +1,7 @@
 from research_navigator.ingest.parsers.pdf_parser import parse_pdf
 import re
 
-text = parse_pdf(
-    "documents/arxiv/arxiv-1706.03762.pdf"
-)
+text = parse_pdf("documents/arxiv/arxiv-1706.03762.pdf")
 
 match = re.search(
     r"Abstract(.*?)1\s+Introduction",

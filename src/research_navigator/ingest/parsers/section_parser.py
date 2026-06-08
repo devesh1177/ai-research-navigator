@@ -9,7 +9,6 @@ def extract_sections(text: str) -> list[dict]:
     sections = []
 
     for i, match in enumerate(matches):
-
         title = match.group(1).strip()
 
         start = match.end()

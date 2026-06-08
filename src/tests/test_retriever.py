@@ -8,7 +8,6 @@ print(query)
 results = retrieve(query)
 
 for i, result in enumerate(results, start=1):
-
     print(f"\nResult {i}")
 
     print("Title:")

@@ -11,30 +11,22 @@ def build_filter(filters):
     conditions = []
 
     if filters["year_gte"] is not None:
-
         conditions.append(
             FieldCondition(
                 key="year",
-                range=Range(
-                    gte=filters["year_gte"]
-                ),
+                range=Range(gte=filters["year_gte"]),
             )
         )
 
     for tag in filters["tags"]:
-
         conditions.append(
             FieldCondition(
                 key="tags",
-                match=MatchValue(
-                    value=tag
-                ),
+                match=MatchValue(value=tag),
             )
         )
 
     if not conditions:
         return None
 
-    return Filter(
-        must=conditions
-    )
+    return Filter(must=conditions)

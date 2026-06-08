@@ -4,9 +4,7 @@ from research_navigator.retrieve.hybrid_retriever import (
 
 query = "recent rag papers"
 
-results = hybrid_retrieve(
-    query
-)
+results = hybrid_retrieve(query)
 
 print()
 
@@ -17,21 +15,12 @@ for idx, result in enumerate(
     results,
     start=1,
 ):
-
     print()
 
-    print(
-        f"Result {idx}"
-    )
+    print(f"Result {idx}")
 
-    print(
-        result.payload["title"]
-    )
+    print(result.payload["title"])
 
-    print(
-        result.payload["year"]
-    )
+    print(result.payload["year"])
 
-    print(
-        result.payload["tags"]
-    )
+    print(result.payload["tags"])

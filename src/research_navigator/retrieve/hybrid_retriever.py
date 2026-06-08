@@ -50,10 +50,7 @@ def is_corpus_query(
 
     query = query.lower()
 
-    return any(
-        term in query
-        for term in RESEARCH_TERMS
-    )
+    return any(term in query for term in RESEARCH_TERMS)
 
 
 def hybrid_retrieve(
@@ -66,9 +63,7 @@ def hybrid_retrieve(
     # Reject unrelated questions
     # ---------------------------------
 
-    if not is_corpus_query(
-        query
-    ):
+    if not is_corpus_query(query):
         return []
 
     # ---------------------------------
@@ -88,14 +83,9 @@ def hybrid_retrieve(
     # Low Confidence Refusal
     # ---------------------------------
 
-    best_dense_score = (
-        dense_results[0].score
-    )
+    best_dense_score = dense_results[0].score
 
-    if (
-        best_dense_score
-        < confidence_threshold
-    ):
+    if best_dense_score < confidence_threshold:
         return []
 
     # ---------------------------------
@@ -119,10 +109,7 @@ def hybrid_retrieve(
         dense_results,
         start=1,
     ):
-
-        doc_id = point.payload[
-            "doc_id"
-        ]
+        doc_id = point.payload["doc_id"]
 
         fused_scores[doc_id] = {
             "point": point,
@@ -131,28 +118,19 @@ def hybrid_retrieve(
 
     # BM25 scores
 
-    for rank, (
-        point,
-        _
-    ) in enumerate(
+    for rank, (point, _) in enumerate(
         bm25_results,
         start=1,
     ):
-
-        doc_id = point.payload[
-            "doc_id"
-        ]
+        doc_id = point.payload["doc_id"]
 
         if doc_id not in fused_scores:
-
             fused_scores[doc_id] = {
                 "point": point,
                 "score": 0.0,
             }
 
-        fused_scores[doc_id][
-            "score"
-        ] += 1.0 / rank
+        fused_scores[doc_id]["score"] += 1.0 / rank
 
     # ---------------------------------
     # Sort by fused score
@@ -173,21 +151,16 @@ def hybrid_retrieve(
     seen_docs = set()
 
     for item in ranked:
-
         point = item["point"]
 
-        doc_id = point.payload[
-            "doc_id"
-        ]
+        doc_id = point.payload["doc_id"]
 
         if doc_id in seen_docs:
             continue
 
         seen_docs.add(doc_id)
 
-        final_results.append(
-            point
-        )
+        final_results.append(point)
 
         if len(final_results) >= k:
             break

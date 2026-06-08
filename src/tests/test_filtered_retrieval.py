@@ -8,7 +8,6 @@ print(query)
 results = retrieve(query)
 
 for result in results:
-
     print("\nTitle:")
     print(result.payload["title"])
 

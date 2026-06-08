@@ -23,17 +23,11 @@ def retrieve(
     min_score: float = 0.55,
 ):
 
-    query_vector = embed(
-        query
-    ).tolist()
+    query_vector = embed(query).tolist()
 
-    filters = understand_query(
-        query
-    )
+    filters = understand_query(query)
 
-    qdrant_filter = build_filter(
-        filters
-    )
+    qdrant_filter = build_filter(filters)
 
     results = client.query_points(
         collection_name="research_navigator",
@@ -50,21 +44,14 @@ def retrieve(
     seen_doc_ids = set()
 
     for point in results.points:
-
-        doc_id = point.payload[
-            "doc_id"
-        ]
+        doc_id = point.payload["doc_id"]
 
         if doc_id in seen_doc_ids:
             continue
 
-        seen_doc_ids.add(
-            doc_id
-        )
+        seen_doc_ids.add(doc_id)
 
-        unique_results.append(
-            point
-        )
+        unique_results.append(point)
 
         if len(unique_results) >= k:
             break
@@ -72,10 +59,7 @@ def retrieve(
     if len(unique_results) == 0:
         return []
 
-    if (
-        unique_results[0].score
-        < min_score
-    ):
+    if unique_results[0].score < min_score:
         return []
 
     return unique_results

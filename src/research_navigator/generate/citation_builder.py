@@ -8,7 +8,6 @@ def build_citations(results):
     citation_number = 1
 
     for result in results:
-
         payload = result.payload
 
         doc_id = payload["doc_id"]

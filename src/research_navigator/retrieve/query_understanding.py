@@ -19,21 +19,14 @@ def understand_query(query: str) -> dict:
         "modern",
     ]
 
-    if any(
-        keyword in query_lower
-        for keyword in recent_keywords
-    ):
+    if any(keyword in query_lower for keyword in recent_keywords):
         filters["year_gte"] = 2023
 
     # -----------------------------
     # RAG
     # -----------------------------
 
-    if (
-        "rag" in query_lower
-        or "retrieval" in query_lower
-        or "graphrag" in query_lower
-    ):
+    if "rag" in query_lower or "retrieval" in query_lower or "graphrag" in query_lower:
         filters["tags"].append("RAG")
 
     # -----------------------------
@@ -52,11 +45,7 @@ def understand_query(query: str) -> dict:
     # Reasoning
     # -----------------------------
 
-    if (
-        "reasoning" in query_lower
-        or "chain of thought" in query_lower
-        or "cot" in query_lower
-    ):
+    if "reasoning" in query_lower or "chain of thought" in query_lower or "cot" in query_lower:
         filters["tags"].append("reasoning")
 
     # -----------------------------
@@ -75,31 +64,21 @@ def understand_query(query: str) -> dict:
     # RLHF
     # -----------------------------
 
-    if (
-        "rlhf" in query_lower
-        or "human feedback" in query_lower
-    ):
+    if "rlhf" in query_lower or "human feedback" in query_lower:
         filters["tags"].append("RLHF")
 
     # -----------------------------
     # Safety
     # -----------------------------
 
-    if (
-        "safety" in query_lower
-        or "harmless" in query_lower
-        or "constitutional ai" in query_lower
-    ):
+    if "safety" in query_lower or "harmless" in query_lower or "constitutional ai" in query_lower:
         filters["tags"].append("safety")
 
     # -----------------------------
     # Transformers
     # -----------------------------
 
-    if (
-        "transformer" in query_lower
-        or "attention" in query_lower
-    ):
+    if "transformer" in query_lower or "attention" in query_lower:
         filters["tags"].append("transformers")
 
     # -----------------------------
@@ -118,11 +97,7 @@ def understand_query(query: str) -> dict:
     # MoE
     # -----------------------------
 
-    if (
-        "moe" in query_lower
-        or "mixture of experts" in query_lower
-        or "mixtral" in query_lower
-    ):
+    if "moe" in query_lower or "mixture of experts" in query_lower or "mixtral" in query_lower:
         filters["tags"].append("MoE")
 
     # -----------------------------
@@ -164,19 +139,13 @@ def understand_query(query: str) -> dict:
     # Multimodal
     # -----------------------------
 
-    if (
-        "multimodal" in query_lower
-        or "vision" in query_lower
-        or "audio" in query_lower
-    ):
+    if "multimodal" in query_lower or "vision" in query_lower or "audio" in query_lower:
         filters["tags"].append("multimodal")
 
     # -----------------------------
     # Remove Duplicates
     # -----------------------------
 
-    filters["tags"] = list(
-        set(filters["tags"])
-    )
+    filters["tags"] = list(set(filters["tags"]))
 
     return filters

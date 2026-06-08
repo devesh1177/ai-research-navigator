@@ -11,21 +11,12 @@ results = retrieve(query)
 citations = build_citations(results)
 
 for citation in citations:
-
     print()
 
-    print(
-        f"[{citation['citation_id']}]"
-    )
+    print(f"[{citation['citation_id']}]")
 
-    print(
-        citation["title"]
-    )
+    print(citation["title"])
 
-    print(
-        f"Year: {citation['year']}"
-    )
+    print(f"Year: {citation['year']}")
 
-    print(
-        f"Section: {citation['section']}"
-    )
+    print(f"Section: {citation['section']}")

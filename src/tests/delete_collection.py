@@ -5,8 +5,6 @@ client = QdrantClient(
     port=6333,
 )
 
-client.delete_collection(
-    collection_name="research_navigator"
-)
+client.delete_collection(collection_name="research_navigator")
 
 print("Collection Deleted")

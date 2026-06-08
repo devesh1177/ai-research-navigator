@@ -7,9 +7,7 @@ client = QdrantClient(
     port=6333,
 )
 
-query_vector = embed(
-    "transformer architecture"
-).tolist()
+query_vector = embed("transformer architecture").tolist()
 
 results = client.query_points(
     collection_name="research_navigator",

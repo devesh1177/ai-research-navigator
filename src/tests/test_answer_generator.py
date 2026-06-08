@@ -8,9 +8,7 @@ from research_navigator.generate.answer_generator import (
 
 query = "recent RAG papers"
 
-results = retrieve(
-    query
-)
+results = retrieve(query)
 
 answer = generate_answer(
     query,

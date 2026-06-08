@@ -20,27 +20,15 @@ def bm25_search(
         with_payload=True,
     )
 
-    corpus = [
-        point.payload["content"]
-        for point in points
-    ]
+    corpus = [point.payload["content"] for point in points]
 
-    tokenized_corpus = [
-        doc.lower().split()
-        for doc in corpus
-    ]
+    tokenized_corpus = [doc.lower().split() for doc in corpus]
 
-    bm25 = BM25Okapi(
-        tokenized_corpus
-    )
+    bm25 = BM25Okapi(tokenized_corpus)
 
-    tokenized_query = (
-        query.lower().split()
-    )
+    tokenized_query = query.lower().split()
 
-    scores = bm25.get_scores(
-        tokenized_query
-    )
+    scores = bm25.get_scores(tokenized_query)
 
     ranked_results = sorted(
         zip(points, scores),

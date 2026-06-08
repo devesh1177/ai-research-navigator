@@ -2,9 +2,7 @@ import hashlib
 
 
 def generate_content_hash(text: str) -> str:
-    return hashlib.sha256(
-        text.encode("utf-8")
-    ).hexdigest()
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def generate_chunk_id(
@@ -12,6 +10,4 @@ def generate_chunk_id(
     chunk_index: int,
     content_hash: str,
 ) -> str:
-    return (
-        f"{doc_id}_{chunk_index}_{content_hash[:12]}"
-    )
+    return f"{doc_id}_{chunk_index}_{content_hash[:12]}"

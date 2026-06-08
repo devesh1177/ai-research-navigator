@@ -39,48 +39,36 @@ def run_pipeline() -> None:
     chunks_stored = 0
 
     for document in manifest["documents"]:
-
         print(f"\nProcessing: {document['title']}")
 
         try:
-
             path = document["local_path"]
 
             if path.endswith(".pdf"):
-
                 text = parse_pdf(path)
 
                 sections = extract_sections(text)
 
             elif path.endswith(".md"):
-
                 text = parse_markdown(path)
 
                 sections = extract_markdown_sections(text)
 
             else:
-
-                print(
-                    f"Unsupported file type: {path}"
-                )
+                print(f"Unsupported file type: {path}")
 
                 continue
 
             chunks = chunk_sections(sections)
 
-            print(
-                f"Sections: {len(sections)} | Chunks: {len(chunks)}"
-            )
+            print(f"Sections: {len(sections)} | Chunks: {len(chunks)}")
 
             sections_processed += len(sections)
 
             points = []
 
             for chunk in chunks:
-
-                content_hash = generate_content_hash(
-                    chunk["content"]
-                )
+                content_hash = generate_content_hash(chunk["content"])
 
                 chunk_id = generate_chunk_id(
                     document["doc_id"],
@@ -102,9 +90,7 @@ def run_pipeline() -> None:
                     content_hash=content_hash,
                 )
 
-                vector = embed(
-                    payload.content
-                ).tolist()
+                vector = embed(payload.content).tolist()
 
                 point = PointStruct(
                     id=abs(hash(chunk_id)),
@@ -137,10 +123,7 @@ def run_pipeline() -> None:
             documents_processed += 1
 
         except Exception as e:
-
-            print(
-                f"Failed: {document['title']}"
-            )
+            print(f"Failed: {document['title']}")
 
             print(e)
 
@@ -148,17 +131,11 @@ def run_pipeline() -> None:
     print("INGESTION COMPLETE")
     print("==========================")
 
-    print(
-        f"Documents Processed: {documents_processed}"
-    )
+    print(f"Documents Processed: {documents_processed}")
 
-    print(
-        f"Sections Extracted: {sections_processed}"
-    )
+    print(f"Sections Extracted: {sections_processed}")
 
-    print(
-        f"Chunks Stored: {chunks_stored}"
-    )
+    print(f"Chunks Stored: {chunks_stored}")
 
 
 if __name__ == "__main__":

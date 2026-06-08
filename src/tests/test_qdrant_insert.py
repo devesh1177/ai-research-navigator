@@ -8,9 +8,7 @@ client = QdrantClient(
     port=6333,
 )
 
-vector = embed(
-    "Attention is all you need"
-).tolist()
+vector = embed("Attention is all you need").tolist()
 
 client.upsert(
     collection_name="research_navigator",
