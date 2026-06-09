@@ -1,0 +1,180 @@
+[
+  {
+    "query": "What is RAG?",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "Corrective Retrieval Augmented Generation",
+      "From Local to Global: A Graph RAG Approach to Query-Focused Summarization"
+    ]
+  },
+  {
+    "query": "What is GraphRAG?",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "From Local to Global: A Graph RAG Approach to Query-Focused Summarization"
+    ]
+  },
+  {
+    "query": "What is Agentic RAG?",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "Hugging Face Agents Course — Unit 3: Use Case for Agentic RAG"
+    ]
+  },
+  {
+    "query": "What is LoRA?",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "LoRA: Low-Rank Adaptation of Large Language Models"
+    ]
+  },
+  {
+    "query": "What is RLHF?",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "Learning from Human Feedback"
+    ]
+  },
+  {
+    "query": "Explain transformers",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "Attention Is All You Need"
+    ]
+  },
+  {
+    "query": "Explain BERT",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"
+    ]
+  },
+  {
+    "query": "What is ReAct?",
+    "route": "concept_explanation",
+    "expected_sources": [
+      "ReAct: Synergizing Reasoning and Acting in Language Models"
+    ]
+  },
+
+  {
+    "query": "Explain Attention Is All You Need",
+    "route": "paper_deep_dive",
+    "expected_sources": [
+      "Attention Is All You Need"
+    ]
+  },
+  {
+    "query": "Explain BERT paper",
+    "route": "paper_deep_dive",
+    "expected_sources": [
+      "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"
+    ]
+  },
+  {
+    "query": "Explain LoRA paper",
+    "route": "paper_deep_dive",
+    "expected_sources": [
+      "LoRA: Low-Rank Adaptation of Large Language Models"
+    ]
+  },
+  {
+    "query": "Explain ReAct paper",
+    "route": "paper_deep_dive",
+    "expected_sources": [
+      "ReAct: Synergizing Reasoning and Acting in Language Models"
+    ]
+  },
+  {
+    "query": "Explain GPT-3 paper",
+    "route": "paper_deep_dive",
+    "expected_sources": [
+      "Language Models are Few-Shot Learners"
+    ]
+  },
+  {
+    "query": "Explain Llama 2 paper",
+    "route": "paper_deep_dive",
+    "expected_sources": [
+      "Llama 2: Open Foundation and Fine-Tuned Chat Models"
+    ]
+  },
+
+  {
+    "query": "Compare LoRA vs ReAct",
+    "route": "compare_approaches",
+    "expected_sources": [
+      "LoRA: Low-Rank Adaptation of Large Language Models",
+      "ReAct: Synergizing Reasoning and Acting in Language Models"
+    ]
+  },
+  {
+    "query": "Compare GPT-3 vs BERT",
+    "route": "compare_approaches",
+    "expected_sources": [
+      "Language Models are Few-Shot Learners",
+      "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"
+    ]
+  },
+  {
+    "query": "Compare RAG vs GraphRAG",
+    "route": "compare_approaches",
+    "expected_sources": [
+      "Corrective Retrieval Augmented Generation",
+      "From Local to Global: A Graph RAG Approach to Query-Focused Summarization"
+    ]
+  },
+
+  {
+    "query": "Recent RAG papers",
+    "route": "recent_developments",
+    "expected_sources": []
+  },
+  {
+    "query": "Recent agent papers",
+    "route": "recent_developments",
+    "expected_sources": []
+  },
+  {
+    "query": "Recent LLM developments",
+    "route": "recent_developments",
+    "expected_sources": []
+  },
+
+  {
+    "query": "Recommend papers on agents",
+    "route": "find_papers",
+    "expected_sources": []
+  },
+  {
+    "query": "Recommend papers on transformers",
+    "route": "find_papers",
+    "expected_sources": []
+  },
+  {
+    "query": "Recommend papers on reasoning",
+    "route": "find_papers",
+    "expected_sources": []
+  },
+
+  {
+    "query": "Who won FIFA 2022?",
+    "route": "out_of_scope",
+    "expected_sources": []
+  },
+  {
+    "query": "Capital of Japan?",
+    "route": "out_of_scope",
+    "expected_sources": []
+  },
+  {
+    "query": "Chocolate cake recipe",
+    "route": "out_of_scope",
+    "expected_sources": []
+  },
+  {
+    "query": "Weather in London?",
+    "route": "out_of_scope",
+    "expected_sources": []
+  }
+]

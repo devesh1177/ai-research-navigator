@@ -9,11 +9,56 @@ from research_navigator.retrieve.bm25_retriever import (
 )
 
 
+RESEARCH_TERMS = [
+    "rag",
+    "graphrag",
+    "agentic rag",
+    "retrieval",
+    "transformer",
+    "transformers",
+    "attention",
+    "bert",
+    "gpt",
+    "llm",
+    "lora",
+    "react",
+    "rlhf",
+    "agent",
+    "agents",
+    "reasoning",
+    "chain of thought",
+    "deepseek",
+    "gemini",
+    "llama",
+    "mixtral",
+    "alignment",
+    "fine tuning",
+    "fine-tuning",
+    "multimodal",
+]
+
+
+def is_corpus_query(
+    query: str,
+) -> bool:
+
+    query = query.lower()
+
+    return any(term in query for term in RESEARCH_TERMS)
+
+
 def hybrid_retrieve(
     query: str,
     k: int = 5,
     confidence_threshold: float = 0.55,
 ) -> list[Any]:
+
+    # ---------------------------------
+    # Out-of-scope rejection
+    # ---------------------------------
+
+    if not is_corpus_query(query):
+        return []
 
     # ---------------------------------
     # Dense Retrieval
@@ -29,7 +74,7 @@ def hybrid_retrieve(
         return []
 
     # ---------------------------------
-    # Low Confidence Refusal
+    # Confidence Check
     # ---------------------------------
 
     best_dense_score = dense_results[0].score
@@ -47,10 +92,10 @@ def hybrid_retrieve(
     )
 
     # ---------------------------------
-    # Reciprocal Rank Fusion (RRF)
+    # Reciprocal Rank Fusion
     # ---------------------------------
 
-    fused_scores = {}
+    fused_scores: dict[str, dict[str, Any]] = {}
 
     for rank, point in enumerate(
         dense_results,
@@ -81,7 +126,7 @@ def hybrid_retrieve(
         fused_scores[doc_id]["score"] += 1.0 / rank
 
     # ---------------------------------
-    # Sort by Fusion Score
+    # Sort by fused score
     # ---------------------------------
 
     ranked = sorted(
@@ -91,12 +136,12 @@ def hybrid_retrieve(
     )
 
     # ---------------------------------
-    # Remove Duplicate Documents
+    # Remove duplicates
     # ---------------------------------
 
-    final_results = []
+    final_results: list[Any] = []
 
-    seen_docs = set()
+    seen_docs: set[str] = set()
 
     for item in ranked:
         point = item["point"]

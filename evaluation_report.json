@@ -1,0 +1,23 @@
+{
+    "retrieval": {
+        "precision_at_5": 0.243,
+        "recall_at_5": 0.912
+    },
+    "refusal": {
+        "accuracy": 1.0
+    },
+    "latency": {
+        "average_seconds": 0.694,
+        "p50_seconds": 0.76,
+        "p95_seconds": 1.109
+    },
+    "token_cost": {
+        "average_tokens": 115.67
+    },
+    "comparison": {
+        "dense_precision": 0.325,
+        "dense_recall": 0.912,
+        "hybrid_precision": 0.243,
+        "hybrid_recall": 0.912
+    }
+}
