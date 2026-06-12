@@ -1,4 +1,6 @@
-from rank_bm25 import BM25Okapi
+from typing import Any
+
+from rank_bm25 import BM25Okapi  # type: ignore[import-untyped]
 
 from qdrant_client import QdrantClient
 
@@ -12,7 +14,7 @@ client = QdrantClient(
 def bm25_search(
     query: str,
     top_k: int = 10,
-):
+) -> list[tuple[Any, float]]:
 
     points, _ = client.scroll(
         collection_name="research_navigator",
@@ -20,18 +22,28 @@ def bm25_search(
         with_payload=True,
     )
 
-    corpus = [point.payload["content"] for point in points]
+    corpus: list[str] = []
+
+    valid_points: list[Any] = []
+
+    for point in points:
+        payload = point.payload
+
+        if payload is None:
+            continue
+
+        corpus.append(str(payload["content"]))
+
+        valid_points.append(point)
 
     tokenized_corpus = [doc.lower().split() for doc in corpus]
 
     bm25 = BM25Okapi(tokenized_corpus)
 
-    tokenized_query = query.lower().split()
-
-    scores = bm25.get_scores(tokenized_query)
+    scores = bm25.get_scores(query.lower().split())
 
     ranked_results = sorted(
-        zip(points, scores),
+        zip(valid_points, scores),
         key=lambda x: x[1],
         reverse=True,
     )

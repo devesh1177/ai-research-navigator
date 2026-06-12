@@ -1,5 +1,9 @@
 from typing import Any
 
+from research_navigator.config.settings import (
+    settings,
+)
+
 from research_navigator.retrieve.retriever import (
     retrieve,
 )
@@ -50,8 +54,11 @@ def is_corpus_query(
 def hybrid_retrieve(
     query: str,
     k: int = 5,
-    confidence_threshold: float = 0.55,
+    confidence_threshold: float | None = None,
 ) -> list[Any]:
+
+    if confidence_threshold is None:
+        confidence_threshold = settings.retrieval_confidence_threshold
 
     # ---------------------------------
     # Out-of-scope rejection

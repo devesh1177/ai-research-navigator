@@ -6,10 +6,17 @@ from research_navigator.retrieve.filter_builder import (
     build_filter,
 )
 
-query = "recent work on RAG"
 
-filters = understand_query(query)
+def test_filter_builder() -> None:
 
-qdrant_filter = build_filter(filters)
+    query = "recent work on RAG"
 
-print(qdrant_filter)
+    filters = understand_query(
+        query,
+    )
+
+    qdrant_filter = build_filter(
+        filters,
+    )
+
+    assert qdrant_filter is not None

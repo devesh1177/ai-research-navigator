@@ -2,18 +2,26 @@ from research_navigator.retrieve.query_understanding import (
     understand_query,
 )
 
-queries = [
-    "recent work on RAG",
-    "How does LoRA work?",
-    "Recent GraphRAG papers",
-    "What is DeepSeek-R1?",
-]
 
-for query in queries:
-    print("\nQuery:")
-    print(query)
+def test_recent_query() -> None:
+    filters = understand_query("recent work on RAG")
 
-    print("\nFilters:")
-    print(understand_query(query))
+    assert filters is not None
 
-    print("-" * 50)
+
+def test_lora_query() -> None:
+    filters = understand_query("How does LoRA work?")
+
+    assert filters is not None
+
+
+def test_graphrag_query() -> None:
+    filters = understand_query("Recent GraphRAG papers")
+
+    assert filters is not None
+
+
+def test_deepseek_query() -> None:
+    filters = understand_query("What is DeepSeek-R1?")
+
+    assert filters is not None

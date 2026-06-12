@@ -1,16 +1,19 @@
 from collections import OrderedDict
+from typing import Any
 
 
-def build_citations(results):
+def build_citations(
+    results: list[Any],
+) -> list[dict[str, Any]]:
 
-    citations = OrderedDict()
+    citations: OrderedDict[str, dict[str, Any]] = OrderedDict()
 
     citation_number = 1
 
     for result in results:
         payload = result.payload
 
-        doc_id = payload["doc_id"]
+        doc_id = str(payload["doc_id"])
 
         if doc_id in citations:
             continue
@@ -21,7 +24,10 @@ def build_citations(results):
             "year": payload["year"],
             "section": payload["section_title"],
             "doc_id": payload["doc_id"],
-            "content_type": payload["content_type"],
+            "content_type": payload.get(
+                "content_type",
+                "unknown",
+            ),
         }
 
         citation_number += 1

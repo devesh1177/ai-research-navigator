@@ -1,12 +1,14 @@
 import re
 
 
-def extract_sections(text: str) -> list[dict]:
+def extract_sections(
+    text: str,
+) -> list[dict[str, str]]:
     pattern = r"\n\d+\n([A-Z][A-Za-z\s\-]+)\n"
 
     matches = list(re.finditer(pattern, text))
 
-    sections = []
+    sections: list[dict[str, str]] = []
 
     for i, match in enumerate(matches):
         title = match.group(1).strip()

@@ -1,9 +1,10 @@
-# src/tests/test_chunk_model_pytest.py
-
-from research_navigator.ingest.models.chunk_model import ChunkPayload
+from research_navigator.ingest.models.chunk_model import (
+    ChunkPayload,
+)
 
 
 def test_chunk_payload() -> None:
+
     chunk = ChunkPayload(
         doc_id="1",
         content_type="paper",

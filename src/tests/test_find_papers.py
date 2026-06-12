@@ -2,19 +2,51 @@ from research_navigator.agents.nodes.find_papers import (
     find_papers_node,
 )
 
-from research_navigator.agents.state import (
-    NavigatorState,
-)
+
+class MockResult:
+    def __init__(self) -> None:
+        self.payload = {
+            "title": "LoRA",
+            "year": 2021,
+            "primary_category": "cs.CL",
+        }
 
 
-state: NavigatorState = {
-    "query": "recommend papers on agents",
-    "route": "find_papers",
-    "answer": "",
-    "citations": [],
-    "metadata": {},
-}
+def test_find_papers_success(monkeypatch) -> None:
 
-result = find_papers_node(state)
+    monkeypatch.setattr(
+        "research_navigator.agents.nodes.find_papers.hybrid_retrieve",
+        lambda query, k=15: [MockResult()],
+    )
 
-print(result["answer"])
+    state = {
+        "query": "Recommend papers on LoRA",
+        "route": "",
+        "answer": "",
+        "citations": [],
+        "metadata": {},
+    }
+
+    result = find_papers_node(state)
+
+    assert "Recommended Reading List" in result["answer"]
+
+
+def test_find_papers_empty(monkeypatch) -> None:
+
+    monkeypatch.setattr(
+        "research_navigator.agents.nodes.find_papers.hybrid_retrieve",
+        lambda query, k=15: [],
+    )
+
+    state = {
+        "query": "Recommend papers",
+        "route": "",
+        "answer": "",
+        "citations": [],
+        "metadata": {},
+    }
+
+    result = find_papers_node(state)
+
+    assert "No suitable papers found" in result["answer"]

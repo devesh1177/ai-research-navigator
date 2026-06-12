@@ -1,3 +1,15 @@
-def build_context(results):
+from typing import Any
 
-    return "\n\n".join(result.payload["content"] for result in results)
+
+def build_context(
+    results: list[Any],
+) -> str:
+
+    context_parts: list[str] = []
+
+    for result in results:
+        payload = result.payload
+
+        context_parts.append(payload["content"])
+
+    return "\n\n".join(context_parts)

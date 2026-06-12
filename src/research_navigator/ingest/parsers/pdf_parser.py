@@ -1,4 +1,4 @@
-import fitz
+import fitz  # type: ignore[import-untyped]
 
 
 def parse_pdf(pdf_path: str) -> str:

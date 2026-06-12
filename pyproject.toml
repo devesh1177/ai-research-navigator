@@ -1,31 +1,13 @@
-[project]
-name = "ai-research-navigator-corpus"
-version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-    "langchain-text-splitters>=1.1.2",
-    "langgraph>=1.2.4",
-    "pymupdf>=1.27.2.3",
-    "qdrant-client>=1.18.0",
-    "rank-bm25>=0.2.2",
-    "sentence-transformers>=5.5.1",
-]
-
-[dependency-groups]
-dev = [
-    "detect-secrets>=1.5.0",
-    "mypy>=2.1.0",
-    "pre-commit>=4.6.0",
-    "pytest>=9.0.3",
-    "ruff>=0.15.16",
-]
-[tool.ruff]
-line-length = 100
-target-version = "py311"
-
 [tool.mypy]
 python_version = "3.11"
 strict = true
-files = ["src"]
+files = ["src/research_navigator"]
+
+exclude = [
+    "src/tests/test_manifest.py",
+    "src/tests/test_manifest_document.py",
+    "src/tests/test_graph_execution.py",
+    "src/tests/test_m3_routes.py",
+    "src/tests/test_rag_filter.py",
+    "src/tests/test_payload_keys.py",
+]

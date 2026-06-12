@@ -1,8 +1,18 @@
-def understand_query(query: str) -> dict:
+from typing import TypedDict
+
+
+class QueryFilters(TypedDict):
+    year_gte: int | None
+    tags: list[str]
+
+
+def understand_query(
+    query: str,
+) -> QueryFilters:
 
     query_lower = query.lower()
 
-    filters = {
+    filters: QueryFilters = {
         "year_gte": None,
         "tags": [],
     }
@@ -45,7 +55,11 @@ def understand_query(query: str) -> dict:
     # Reasoning
     # -----------------------------
 
-    if "reasoning" in query_lower or "chain of thought" in query_lower or "cot" in query_lower:
+    if (
+        "reasoning" in query_lower
+        or "chain of thought" in query_lower
+        or "cot" in query_lower
+    ):
         filters["tags"].append("reasoning")
 
     # -----------------------------
@@ -71,7 +85,11 @@ def understand_query(query: str) -> dict:
     # Safety
     # -----------------------------
 
-    if "safety" in query_lower or "harmless" in query_lower or "constitutional ai" in query_lower:
+    if (
+        "safety" in query_lower
+        or "harmless" in query_lower
+        or "constitutional ai" in query_lower
+    ):
         filters["tags"].append("safety")
 
     # -----------------------------
@@ -97,7 +115,11 @@ def understand_query(query: str) -> dict:
     # MoE
     # -----------------------------
 
-    if "moe" in query_lower or "mixture of experts" in query_lower or "mixtral" in query_lower:
+    if (
+        "moe" in query_lower
+        or "mixture of experts" in query_lower
+        or "mixtral" in query_lower
+    ):
         filters["tags"].append("MoE")
 
     # -----------------------------
@@ -141,10 +163,6 @@ def understand_query(query: str) -> dict:
 
     if "multimodal" in query_lower or "vision" in query_lower or "audio" in query_lower:
         filters["tags"].append("multimodal")
-
-    # -----------------------------
-    # Remove Duplicates
-    # -----------------------------
 
     filters["tags"] = list(set(filters["tags"]))
 

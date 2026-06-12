@@ -1,11 +1,21 @@
-from research_navigator.ingest.chunker import chunk_text
+from research_navigator.ingest.chunker import (
+    chunk_sections,
+)
 
-sample_text = "Hello world " * 1000
 
-chunks = chunk_text(sample_text)
+sample_sections = [
+    {
+        "section_title": "Introduction",
+        "content": "Hello world " * 1000,
+    }
+]
+
+chunks = chunk_sections(
+    sample_sections,
+)
 
 print("Chunks:", len(chunks))
 
-for i, chunk in enumerate(chunks[:3]):
-    print(f"\nChunk {i}")
-    print("Length:", len(chunk))
+for chunk in chunks[:3]:
+    print(chunk["section_title"])
+    print(chunk["chunk_index"])

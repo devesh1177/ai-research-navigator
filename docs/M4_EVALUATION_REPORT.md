@@ -12,11 +12,11 @@ Accuracy: 1.0
 
 ## Latency
 
-Average: 0.694 s
+Average: 0.941 s
 
-P50: 0.76 s
+P50: 1.082 s
 
-P95: 1.109 s
+P95: 1.3 s
 
 ## Token Cost
 

@@ -1,22 +1,31 @@
-from research_navigator.retrieve.retriever import retrieve
+from research_navigator.retrieve.retriever import (
+    retrieve,
+)
 
 from research_navigator.generate.citation_builder import (
     build_citations,
 )
 
-query = "recent RAG papers"
 
-results = retrieve(query)
+def test_citation_generation() -> None:
 
-citations = build_citations(results)
+    results = retrieve(
+        "recent RAG papers",
+    )
 
-for citation in citations:
-    print()
+    citations = build_citations(
+        results,
+    )
 
-    print(f"[{citation['citation_id']}]")
+    assert isinstance(
+        citations,
+        list,
+    )
 
-    print(citation["title"])
+    if citations:
+        citation = citations[0]
 
-    print(f"Year: {citation['year']}")
-
-    print(f"Section: {citation['section']}")
+        assert "citation_id" in citation
+        assert "title" in citation
+        assert "year" in citation
+        assert "section" in citation

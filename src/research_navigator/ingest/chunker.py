@@ -1,4 +1,8 @@
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from typing import Any
+
+from langchain_text_splitters import (
+    RecursiveCharacterTextSplitter,
+)
 
 splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000,
@@ -6,8 +10,11 @@ splitter = RecursiveCharacterTextSplitter(
 )
 
 
-def chunk_sections(sections):
-    chunks = []
+def chunk_sections(
+    sections: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+
+    chunks: list[dict[str, Any]] = []
 
     for section_index, section in enumerate(sections):
         section_chunks = splitter.split_text(section["content"])

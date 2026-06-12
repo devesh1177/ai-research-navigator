@@ -2,18 +2,60 @@ from research_navigator.agents.nodes.recent_developments import (
     recent_developments_node,
 )
 
-from research_navigator.agents.state import (
-    NavigatorState,
-)
 
-state: NavigatorState = {
-    "query": "recent rag papers",
-    "route": "recent_developments",
-    "answer": "",
-    "citations": [],
-    "metadata": {},
-}
+class MockResult:
+    def __init__(self) -> None:
+        self.payload = {
+            "title": "DeepSeek-R1",
+            "year": 2025,
+        }
 
-result = recent_developments_node(state)
 
-print(result["answer"])
+def test_recent_developments_success(monkeypatch) -> None:
+
+    monkeypatch.setattr(
+        "research_navigator.agents.nodes.recent_developments.get_recent_year_cutoff",
+        lambda: 2022,
+    )
+
+    monkeypatch.setattr(
+        "research_navigator.agents.nodes.recent_developments.hybrid_retrieve",
+        lambda query, k=15: [MockResult()],
+    )
+
+    state = {
+        "query": "Recent reasoning papers",
+        "route": "",
+        "answer": "",
+        "citations": [],
+        "metadata": {},
+    }
+
+    result = recent_developments_node(state)
+
+    assert "Recent Developments" in result["answer"]
+
+
+def test_recent_developments_empty(monkeypatch) -> None:
+
+    monkeypatch.setattr(
+        "research_navigator.agents.nodes.recent_developments.get_recent_year_cutoff",
+        lambda: 2030,
+    )
+
+    monkeypatch.setattr(
+        "research_navigator.agents.nodes.recent_developments.hybrid_retrieve",
+        lambda query, k=15: [MockResult()],
+    )
+
+    state = {
+        "query": "Recent reasoning papers",
+        "route": "",
+        "answer": "",
+        "citations": [],
+        "metadata": {},
+    }
+
+    result = recent_developments_node(state)
+
+    assert "No recent developments found" in result["answer"]

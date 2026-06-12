@@ -1,11 +1,14 @@
-from research_navigator.retrieve.retriever import retrieve
+from research_navigator.retrieve.retriever import (
+    retrieve,
+)
 
-query = "Who won the FIFA World Cup in 1998?"
 
-results = retrieve(query)
+def test_out_of_scope_refusal() -> None:
 
-if not results:
-    print("I don't have enough relevant material in the corpus to answer this confidently.")
+    query = "Who won the FIFA World Cup in 1998?"
 
-else:
-    print("Results found")
+    results = retrieve(
+        query,
+    )
+
+    assert results == []

@@ -1,20 +1,37 @@
-from research_navigator.ingest.parsers.pdf_parser import parse_pdf
-from research_navigator.ingest.parsers.section_parser import extract_sections
-from research_navigator.ingest.chunker import chunk_sections
+from research_navigator.ingest.parsers.pdf_parser import (
+    parse_pdf,
+)
 
-text = parse_pdf("documents/arxiv/arxiv-1706.03762.pdf")
+from research_navigator.ingest.parsers.section_parser import (
+    extract_sections,
+)
 
-sections = extract_sections(text)
+from research_navigator.ingest.chunker import (
+    chunk_sections,
+)
 
-chunks = chunk_sections(sections)
 
-print("Sections:", len(sections))
-print("Chunks:", len(chunks))
+def test_chunk_sections() -> None:
 
-print("\nFirst Chunk Metadata:")
-print(chunks[0]["section_title"])
-print(chunks[0]["section_index"])
-print(chunks[0]["chunk_index"])
+    text = parse_pdf(
+        "documents/arxiv/arxiv-1706.03762.pdf",
+    )
 
-print("\nPreview:")
-print(chunks[0]["content"][:300])
+    sections = extract_sections(
+        text,
+    )
+
+    chunks = chunk_sections(
+        sections,
+    )
+
+    assert len(sections) > 0
+
+    assert len(chunks) > 0
+
+    first_chunk = chunks[0]
+
+    assert "section_title" in first_chunk
+    assert "section_index" in first_chunk
+    assert "chunk_index" in first_chunk
+    assert "content" in first_chunk

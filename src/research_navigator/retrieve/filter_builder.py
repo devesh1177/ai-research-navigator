@@ -1,20 +1,30 @@
+from typing import Any
+
 from qdrant_client.models import (
-    Filter,
     FieldCondition,
+    Filter,
     MatchValue,
     Range,
 )
 
+from research_navigator.retrieve.query_understanding import (
+    QueryFilters,
+)
 
-def build_filter(filters):
 
-    conditions = []
+def build_filter(
+    filters: QueryFilters,
+) -> Filter | None:
+
+    conditions: list[Any] = []
 
     if filters["year_gte"] is not None:
         conditions.append(
             FieldCondition(
                 key="year",
-                range=Range(gte=filters["year_gte"]),
+                range=Range(
+                    gte=filters["year_gte"],
+                ),
             )
         )
 
@@ -22,11 +32,15 @@ def build_filter(filters):
         conditions.append(
             FieldCondition(
                 key="tags",
-                match=MatchValue(value=tag),
+                match=MatchValue(
+                    value=tag,
+                ),
             )
         )
 
     if not conditions:
         return None
 
-    return Filter(must=conditions)
+    return Filter(
+        must=conditions,
+    )
